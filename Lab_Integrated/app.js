@@ -34,8 +34,9 @@ var mysql = require('mysql');
 var connection = mysql.createConnection({
 	host : '127.0.0.1',
 	user : 'root',
-	password : '',
-	database : 'labdb'
+	password : 'root',
+	database : 'labdb',
+	port : '8889'
 });
 
 connection.connect(function(err) {

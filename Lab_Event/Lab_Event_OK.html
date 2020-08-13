@@ -57,21 +57,28 @@ a.boxclose {
 		<p>Here comes a very important message for your user. Turn this
 			window off by clicking the cross.</p>
 	</div>
-
+	<script type="text/javascript" src="jquery.js"></script>
 	<script>
 		function doAnimateShow() {
-			document.getElementById("box").style.left = event.clientX + "px";
-			document.getElementById("box").style.top = event.clientY + "px";
+			 $("#box").css("left",event.x + "px"); 
+			//   document.getElementById("box").style.left = event.clientX + "px";
+			 $("#box").css("top",event.y + "px"); 
+			//  document.getElementById("box").style.top = event.clientY + "px";
 		}
 
 		function doAnimateHide() {
-			document.getElementById("box").style.top = "-200px";
+			$("#box").css("top","-200px"); 
+			//  document.getElementById("box").style.top = "-200px";
 			event.cancelBubble = true;
+			// event.stopPropagation();
 		}
-		
-		document.getElementById("boxclose").onclick = doAnimateHide;
-		
-		document.onclick = doAnimateShow;
+
+		//  document.getElementById("boxclose").onclick = doAnimateHide;
+		$("#boxclose").on("mousemove",doAnimateHide);
+
+		$(document).on("mousemove",doAnimateShow);
+		// document.onclick = doAnimateShow;
+
 		
 	</script>
 

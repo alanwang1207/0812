@@ -12,9 +12,11 @@
 <div id="qrcode"></div>
 
 <script>
+    var target = "https://google.com/search?q=維基";
+    console.log(encodeURI(target));
 
 var options = {
-    text: "http://www.google.com", 
+    text: encodeURI(target),
     width: 100, 
     height: 100
 };
