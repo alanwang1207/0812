@@ -174,8 +174,8 @@
                 ];
 
             // 練習與任務:
-            download();
-            function download(){
+            DownloadAndRefresh();
+            function DownloadAndRefresh(){
                 $.ajax({
                 type: "get",
                 url: "/home/news"
@@ -208,11 +208,18 @@
                     // 寫法二
                     $li.appendTo("#latestNews");
                 }
+                $(".deleteItem").on("click",function(){
+                    alert("del...")
+                })
             }
 // 加號
             $("#newItem").on("click",function(){
                 $("#newsModal").modal({backdrop:"static"})
             })
+            // 箭頭函式
+            // $("#okButton").on("click",()=>{
+            //     $("#newsModal").modal("hide");
+            // });
             $("#okButton").on("click",function()
             {
                 $("#newsModal").modal("hide");
@@ -226,7 +233,7 @@
                     contentType:"application/json",
                     data:JSON.stringify(dataToServer),
                 }).then(function(){
-                    download();
+                    DownloadAndRefresh();
                     // alert("OK");
                 })
                 // alert(JSON.stringify(dataToServer))
