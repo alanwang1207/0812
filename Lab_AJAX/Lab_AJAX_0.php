@@ -3,6 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(init);
+
+
+function init() {
+	letterChange();
+}
+function letterChange() {
+	var selectedLetter = $("#letter option:selected").text();
+		var url = `./getLetterNumber.php?letter=${selectedLetter}`;
+		$.ajax({
+			type:"get",
+			url:url
+		}).then(function(e){
+		$("#letterNumber").html(e);
+	})
+}
+
+</script>
 </head>
 <body>
 
@@ -17,6 +37,7 @@
 
 	<form method="post" action="http://exec.hostzi.com/echo.php">
 		<select name="letter" id="letter">
+			<!-- <option value=""></option> -->
 			<option value="0">A</option>
 			<option value="1">B</option>
 			<option value="2">C</option>
@@ -28,6 +49,47 @@
 		</select> 
 		<input type="submit" value="OK" /> 
 	</form>
+	<div id = "debug"></div>
+	<script>
+	// 顯示選擇雙欄位
+	// $("#letter"&&"#letterNumber").on("change",function(){
+	// 	var selectedLetter = $("#letter option:selected").text();
+	// 	var selectedLetternum = $("#letterNumber option:selected").text();
+	// 	$("#debug").text(selectedLetter+"."+selectedLetternum);
+	// })
+	
+	// 變成副程式寫法
+	function setletternumber(){
+		var selectedLetter = $("#letter option:selected").text();
+		var url = `./getLetterNumber.php?letter=${selectedLetter}`;
+		$.ajax({
+			type:"get",
+			url:url
+		}).then(function(e){
+		$("#letterNumber").html(e);
+		
+	})
+
+	}
+	$("#letter").on("change",setletternumber)
+
+	setletternumber();
+
+
+	// 使用trigger寫法
+	// $("#letter").on("change",function(){
+	// 	var selectedLetter = $("#letter option:selected").text();
+	// 	var url = `./getLetterNumber.php?letter=${selectedLetter}`;
+	// 	$.ajax({
+	// 		type:"get",
+	// 		url:url
+	// 	}).then(function(e){
+	// 	$("#letterNumber").html(e);
+	// })
+	// })
+	// $("#letter").trigger("change");
+	</script>
+
 
 </body>
 </html>
