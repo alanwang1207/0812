@@ -144,6 +144,8 @@ function showToast(heading, message) {
 
 $(function () {
 
+
+    // 假定初始值
     var newsList =
     [
         { ymd: "2017-05-01", title: "Item 1" },
@@ -154,6 +156,11 @@ $(function () {
     ];
 
     // 練習與任務:
+
+    for(let i = 0;i<newsList.length;i++){
+        var newsItem = newsList[i];
+        showToast("test",newsItem.title);
+    }
 
 
 
