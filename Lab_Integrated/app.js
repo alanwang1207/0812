@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded({extended: false}) );
 
-// Web 伺服器的靜態檔案置於 public 資料夾
+// Web 伺服器的靜態檔案置於 public 資料夾(主目錄)
 app.use( express.static( "public" ) );
 
 // 以 express-session 管理狀態資訊
@@ -65,28 +65,6 @@ app.get("/home/news", function (request, response) {
     
 })
 
-$.ajax({
-	url:"/home/news",
-	type:'GET',
-	dataType:'json',
-	success:function(){ // http code 200
-	},
-	error:function(XMLHttpRequest, textStatus, errorThrown){
-		switch(XMLHttpRequest.status){
-			case 401:
-				break;
-			case 404:
-				break;
-			case 500:
-				break;
-		}
-	}
-});
-
-
-
-
-
 app.post("/home/news", function (request, response) {
 
 	connection.query(
@@ -98,27 +76,6 @@ app.post("/home/news", function (request, response) {
 	response.send("row inserted.");
     
 })
-
-
-$.ajax({
-	url:"/home/news",
-	type:'POST',
-	data:'{"name":"snow","gender":0}',
-	dataType:'json',
-	success:function(){ // http code 200
-	},
-	error:function(XMLHttpRequest, textStatus, errorThrown){
-		switch(XMLHttpRequest.status){
-			case 401:
-				break;
-			case 404:
-				break;
-			case 500:
-				break;
-		}
-	}
-});
-
 
 app.put("/home/news", function (request, response) {
 
@@ -133,28 +90,6 @@ app.put("/home/news", function (request, response) {
     
 })
 
-$.ajax({
-	url:"/home/news",
-	type:'PUT',
-	data:'{"name":"snow233","gender":1}',
-	dataType:'json',
-	beforeSend: function(request) {
-		request.setRequestHeader("Authorization", "Bearer xxxxxxxxxx");
-	},
-	success:function(){ // http code 200
-	},
-	error:function(XMLHttpRequest, textStatus, errorThrown){
-		switch(XMLHttpRequest.status){
-			case 401:
-				break;
-			case 404:
-				break;
-			case 500:
-				break;
-		}
-	}
-});
-
 app.delete("/home/news", function (request, response) {
 
 	connection.query(
@@ -164,25 +99,3 @@ app.delete("/home/news", function (request, response) {
 	response.send("row deleted.");
     
 })
-
-
-$.ajax({
-	url:"/ajax/delete_data/123456",
-	type:'DELETE',
-	dataType:'json',
-	beforeSend: function(request) {
-		request.setRequestHeader("Authorization", "Bearer xxxxxxxxxx");
-	},
-	success:function(){ // http code 200
-	},
-	error:function(XMLHttpRequest, textStatus, errorThrown){
-		switch(XMLHttpRequest.status){
-			case 401:
-				break;
-			case 404:
-				break;
-			case 500:
-				break;
-		}
-	}
-});
