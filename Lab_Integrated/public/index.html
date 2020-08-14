@@ -159,7 +159,7 @@
 
 
     <script>
-// document ready簡寫
+        // document ready簡寫
         $(function () {
 
 
@@ -178,16 +178,16 @@
             var currentindex = -1;
 
             DownloadAndRefresh();
-            function DownloadAndRefresh(){
+            function DownloadAndRefresh() {
                 $.ajax({
-                type: "get",
-                url: "/home/news"
-            }).then(function (e) {
-                newsList = JSON.parse(e);
-                refreshUI();
-            })
+                    type: "get",
+                    url: "/home/news"
+                }).then(function (e) {
+                    newsList = JSON.parse(e);
+                    refreshUI();
+                })
             }
-            
+
             function refreshUI() {
                 $("#latestNews").empty();
                 for (let i = 0; i < newsList.length; i++) {
@@ -211,67 +211,66 @@
                     // 寫法二
                     $li.appendTo("#latestNews");
                 }
-                $(".editItem").on("click",function(){
+                $(".editItem").on("click", function () {
                     var index = $(this).closest("li").index();
                     currentindex = index;
-                    $("#titleTextBox").prop("value",newsList[index].title);
+                    $("#titleTextBox").prop("value", newsList[index].title);
                     $("#ymdTextBox").val(newsList[index].ymd);
 
-                    $("#newsModal").modal({backdrop:"static"})
+                    $("#newsModal").modal({ backdrop: "static" })
                 })
-                $(".deleteItem").on("click",function(){
+                $(".deleteItem").on("click", function () {
                     var index = $(this).closest("li").index();
                     $.ajax({
-                        type:"delete",
-                        url:"/home/news",
-                        data:newsList[index]
-                    }).then(function(e){
+                        type: "delete",
+                        url: "/home/news",
+                        data: newsList[index]
+                    }).then(function (e) {
                         DownloadAndRefresh();
                     })
                 })
             }
-// 加號
-            $("#newItem").on("click",function(){
-                $("#newsModal").modal({backdrop:"static"})
+            // 加號
+            $("#newItem").on("click", function () {
+                $("#newsModal").modal({ backdrop: "static" })
             })
             // 箭頭函式
             // $("#okButton").on("click",()=>{
             //     $("#newsModal").modal("hide");
             // });
-            $("#okButton").on("click",function()
-            {
+            $("#okButton").on("click", function () {
                 $("#newsModal").modal("hide");
-                if(currentindex <0){
+                if (currentindex < 0) {
                     let dataToServer = {
-                    title:$("#titleTextBox").prop("value"),
-                    ymd:$("#ymdTextBox").val()
+                        title: $("#titleTextBox").prop("value"),
+                        ymd: $("#ymdTextBox").val()
+                    }
+                    $.ajax({
+                        type: "post",
+                        url: "/home/news",
+                        contentType: "application/json",
+                        data: JSON.stringify(dataToServer),
+                    }).then(function () {
+                        DownloadAndRefresh();
+                        // alert("OK");
+                    })
                 }
-                $.ajax({
-                    type:"post",
-                    url:"/home/news",
-                    contentType:"application/json",
-                    data:JSON.stringify(dataToServer),
-                }).then(function(){
-                    DownloadAndRefresh();
-                    // alert("OK");
-                })
-                }
-                else{
+                else {
                     let dataToServer = {
-                    newsId:newsList[currentindex].newsId,
-                    title:$("#titleTextBox").prop("value"),
-                    ymd:$("#ymdTextBox").val()
-                }
-                $.ajax({
-                    type:"put",
-                    url:"/home/news",
-                    data:dataToServer
-                }).then(function(e){
-                    showToast(e);
-                })
+                        newsId: newsList[currentindex].newsId,
+                        title: $("#titleTextBox").prop("value"),
+                        ymd: $("#ymdTextBox").val()
+                    }
+                    $.ajax({
+                        type: "put",
+                        url: "/home/news",
+                        data: dataToServer
+                    }).then(function (e) {
+                        showToast(e);
+                    })
 
                 }
-                
+
                 // alert(JSON.stringify(dataToServer))
                 // console.log(dataToServer);
             })
