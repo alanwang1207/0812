@@ -174,14 +174,17 @@
                 ];
 
             // 練習與任務:
-            
-            $.ajax({
+            download();
+            function download(){
+                $.ajax({
                 type: "get",
                 url: "/home/news"
             }).then(function (e) {
                 newsList = JSON.parse(e);
                 refreshUI();
             })
+            }
+            
             function refreshUI() {
                 $("#latestNews").empty();
                 for (let i = 0; i < newsList.length; i++) {
@@ -210,7 +213,8 @@
             $("#newItem").on("click",function(){
                 $("#newsModal").modal({backdrop:"static"})
             })
-            $("#okButtom").on("click",function(){
+            $("#okButton").on("click",function()
+            {
                 $("#newsModal").modal("hide");
                 let dataToServer = {
                     title:$("#titleTextBox").prop("value"),
@@ -222,7 +226,8 @@
                     contentType:"application/json",
                     data:JSON.stringify(dataToServer),
                 }).then(function(){
-                    alert("OK");
+                    download();
+                    // alert("OK");
                 })
                 // alert(JSON.stringify(dataToServer))
                 // console.log(dataToServer);
