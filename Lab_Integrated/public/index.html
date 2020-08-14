@@ -209,7 +209,9 @@
                     $li.appendTo("#latestNews");
                 }
                 $(".deleteItem").on("click",function(){
-                    alert("del...")
+                    var index = $(this).closest("li").index();
+                    alert(index);
+                    $("#newsModal").modal("hide");
                 })
             }
 // 加號
